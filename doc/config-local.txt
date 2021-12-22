@@ -1,0 +1,52 @@
+*config-local.txt*  config-local
+
+==============================================================================
+INTRODUCTION                                    *config-local-introduction*
+
+Secure load local config files.
+
+Vim provides a feature called |`exrc`|, which allows to use config files that are
+local to the current working directory. However, unconditionally sourcing
+whatever files we might have in our current working directory can be
+potentially dangerous. Because of that, neovim has disabled the feature. The
+plugin tries to solve this issue by keeping track of file hashes and allowing
+only trusted files to be sourced.
+
+When config-local detects a new config file, it will ask what do you want to do
+with it:
+>
+  [config-local]: Unknown config file found: ".vimrc"
+  [s]kip, (o)pen, (i)gnore, (t)rust:
+<
+<Esc>, <CR>, s -> skip question for now and continue
+             o -> open (show) this file
+             i -> ignore, don't ask me about this file again
+             t -> trust, remember my choice and source this file
+
+------------------------------------------------------------------------------
+COMMAND                                         *config-local-command*
+
+:ConfigSource                                   *:ConfigSource*
+	Source config file from the current working directory
+
+:ConfigEdit                                     *:ConfigEdit*
+	Edit (create) config file for the current working directory
+
+:ConfigTrust                                    *:ConfigTrust*
+	Add config file from the current working directory to trusted files.
+
+:ConfigIgnore                                   *:ConfigIgnore*
+	Add config file from the current working directory to ignore files.
+
+
+------------------------------------------------------------------------------
+ABOUT                                           *config-local-about*
+
+Author:  Kirill Klenove <horneds@gmail.com>
+License: Same terms as Vim itself (see |license|)
+
+Grab the latest version or report a bug on GitHub:
+
+https://github.com/klen/nvim-config-local
+
+vim:tw=78:et:ft=help:norl:
