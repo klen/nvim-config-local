@@ -115,15 +115,16 @@ function M.setup(cfg)
     M.config = vim.tbl_deep_extend("force", M.config, cfg)
   end
 
+  local config = M.config
+  local rc_files = M.config.config_files
+
   -- Initialize tools
-  hashmap = HashMap:init(M.config.hashfile)
-  notifier = Notifier:init(M.config.silent)
+  hashmap = HashMap:init(config.hashfile)
+  notifier = Notifier:init(config.silent)
 
-  if #M.config.config_files == 0 then
-    return notifier:notify('Invalid config: "rc_files" is empty', 4)
+  if #rc_files == 0 then
+    return notifier:notify('Invalid config: "config_files" is empty', 4)
   end
-
-  local rc_files = table.concat(M.config.config_files, ",")
 
   if M.config.commands_create then
     api.nvim_command "command ConfigEdit lua require'config-local'.edit()<CR>"
@@ -138,7 +139,7 @@ function M.setup(cfg)
       "DirChanged global nested lua require'config-local'.source()",
       "VimEnter * nested lua require'config-local'.source()",
       -- Confirm local configs
-      "BufWritePost " .. rc_files .. " lua require'config-local'.confirm()",
+      "BufWritePost " .. table.concat(rc_files, ",") .. " lua require'config-local'.confirm()",
       -- Fix filetype for '.vimrc.lua'
       utils.contains(rc_files, ".vimrc.lua") and "BufRead .vimrc.lua set filetype=lua",
     })
