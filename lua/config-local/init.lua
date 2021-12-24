@@ -68,6 +68,13 @@ function M.trust(filename)
   end
   hashmap:write(filename, hashmap:checksum(filename))
   notifier:notify('Config file "' .. filename .. '" marked as trusted')
+  M.read(filename)
+end
+
+---Read the given filename
+function M.read(filename)
+  api.nvim_command("source " .. filename)
+  notifier:onotify('Config file loaded: "' .. vim.fn.fnamemodify(filename, ":t:r") .. '"')
 end
 
 ---Load config if it exist in the current directory
@@ -102,8 +109,7 @@ function M.source()
     end
     -- Read the config
   else
-    api.nvim_command("source " .. filename)
-    notifier:onotify('Config file loaded: "' .. vim.fn.fnamemodify(filename, ":t:r") .. '"')
+    M.read(filename)
   end
 end
 
