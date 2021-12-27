@@ -57,3 +57,12 @@ The plugin defines the commands:
 - `ConfigEdit` - edit config file for from current directory
 - `ConfigTrust` - trust to config file from the current directory
 - `ConfigIgnore` - ignore a config file from the current directory
+
+## Events
+
+The plugin sends event `User ConfigLoaded` after loading configuration.
+So users may bind `autocmd` to the event:
+
+```vim
+	:autocmd User ConfigLoaded lua my_custom_function()
+```

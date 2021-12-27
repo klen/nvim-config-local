@@ -75,6 +75,7 @@ end
 function M.read(filename)
   api.nvim_command("source " .. filename)
   notifier:onotify('Config file loaded: "' .. vim.fn.fnamemodify(filename, ":t:r") .. '"')
+  api.nvim_command "doautocmd User ConfigLoaded"
 end
 
 ---Load config if it exist in the current directory

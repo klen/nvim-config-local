@@ -1,7 +1,7 @@
 *config-local.txt*  config-local
 
 ==============================================================================
-INTRODUCTION                                    *config-local-introduction*
+INTRODUCTION                                     *config-local-introduction*
 
 Secure load local config files.
 
@@ -24,7 +24,7 @@ with it:
              t -> trust, remember my choice and source this file
 
 ------------------------------------------------------------------------------
-COMMAND                                         *config-local-command*
+COMMANDS                                         *config-local-command*
 
 :ConfigSource                                   *:ConfigSource*
 	Source config file from the current working directory
@@ -38,9 +38,17 @@ COMMAND                                         *config-local-command*
 :ConfigIgnore                                   *:ConfigIgnore*
 	Add config file from the current working directory to ignore files.
 
+------------------------------------------------------------------------------
+EVENTS                                           *config-local-events*
+
+The plugin sends event `User ConfigLoaded` after loading configuration.
+So users may bind |autocmd| to the event: >
+
+	:autocmd User ConfigLoaded lua my_custom_function()
+
 
 ------------------------------------------------------------------------------
-ABOUT                                           *config-local-about*
+ABOUT                                            *config-local-about*
 
 Author:  Kirill Klenove <horneds@gmail.com>
 License: Same terms as Vim itself (see |license|)
