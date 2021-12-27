@@ -1,8 +1,0 @@
-:ConfigEdit	config-local.txt	/*:ConfigEdit*
-:ConfigIgnore	config-local.txt	/*:ConfigIgnore*
-:ConfigSource	config-local.txt	/*:ConfigSource*
-:ConfigTrust	config-local.txt	/*:ConfigTrust*
-config-local-about	config-local.txt	/*config-local-about*
-config-local-command	config-local.txt	/*config-local-command*
-config-local-introduction	config-local.txt	/*config-local-introduction*
-config-local.txt	config-local.txt	/*config-local.txt*
