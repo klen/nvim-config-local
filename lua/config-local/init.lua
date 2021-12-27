@@ -42,7 +42,7 @@ end
 --- @param filename string: a file name
 function M.ignore(filename)
   local rc_files = M.config.config_files
-  filename = filename or utils.lookup(vim.fn.expand "%:p:h", rc_files)
+  filename = filename or utils.lookup(vim.fn.getcwd(), rc_files)
   if not filename then
     return notifier:notify("Config file doesn't found: " .. table.concat(rc_files, ","), 4)
   end
@@ -55,7 +55,7 @@ end
 --- @param filename string: a file name
 function M.edit(filename)
   local rc_files = M.config.config_files
-  filename = filename or utils.lookup(vim.fn.expand "%:p:h", rc_files) or rc_files[0]
+  filename = filename or utils.lookup(vim.fn.getcwd(), rc_files) or rc_files[0]
   api.nvim_command("edit " .. filename)
 end
 
@@ -80,7 +80,7 @@ end
 ---Load config if it exist in the current directory
 ---
 function M.source()
-  local filename = utils.lookup(vim.fn.expand "%:p:h", M.config.config_files)
+  local filename = utils.lookup(vim.fn.getcwd(), M.config.config_files)
   if filename then
     local verify = hashmap:verify(filename)
 
