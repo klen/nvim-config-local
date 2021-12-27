@@ -41,10 +41,10 @@ COMMANDS                                         *config-local-command*
 ------------------------------------------------------------------------------
 EVENTS                                           *config-local-events*
 
-The plugin sends event `User ConfigLoaded` after loading configuration.
+The plugin sends event `User ConfigFinished` after loading configuration.
 So users may bind |autocmd| to the event: >
 
-	:autocmd User ConfigLoaded lua my_custom_function()
+	:autocmd User ConfigFinished lua my_custom_function()
 
 
 ------------------------------------------------------------------------------

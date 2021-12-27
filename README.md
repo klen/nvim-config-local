@@ -64,5 +64,5 @@ The plugin sends event `User ConfigLoaded` after loading configuration.
 So users may bind `autocmd` to the event:
 
 ```vim
-	:autocmd User ConfigLoaded lua my_custom_function()
+autocmd User ConfigFinished lua my_custom_function()
 ```

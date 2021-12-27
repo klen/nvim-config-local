@@ -14,7 +14,7 @@ end
 ---@param filename string: a filename with hashes
 ---@returns HashMap
 function HashMap:init(filename)
-  local self = {}
+  self = {}
   setmetatable(self, HashMap)
   self.data = nil
   self.filename = filename

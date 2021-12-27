@@ -74,44 +74,44 @@ end
 ---Read the given filename
 function M.read(filename)
   api.nvim_command("source " .. filename)
-  notifier:onotify('Config file loaded: "' .. vim.fn.fnamemodify(filename, ":t:r") .. '"')
-  api.nvim_command "doautocmd User ConfigLoaded"
+  notifier:onotify('Config file loaded: "' .. vim.fn.fnamemodify(filename, ":t") .. '"')
 end
 
 ---Load config if it exist in the current directory
 ---
 function M.source()
   local filename = utils.lookup(vim.fn.expand "%:p:h", M.config.config_files)
-  if not filename then
-    return
-  end
-  local verify = hashmap:verify(filename)
+  if filename then
+    local verify = hashmap:verify(filename)
 
-  -- Ignore the config
-  if verify == "i" then
-    return notifier:onotify('File "' .. filename .. '" is ignored')
-  end
-
-  -- Verify the config
-  if verify == "u" then
-    local msg = 'Unknown config file found: "' .. vim.fn.fnamemodify(filename, ":t:r") .. '"'
-    local choice = notifier:confirm(msg, "&skip\n&open\n&ignore\n&trust")
-    -- Edit config
-    if choice == 2 then
-      return M.edit(filename)
-    end
-    -- Mark the config as ignore
-    if choice == 3 then
-      return M.ignore(filename)
-    end
-    -- Mark the config as trusted
-    if choice == 4 then
-      return M.trust(filename)
-    end
     -- Read the config
-  else
-    M.read(filename)
+    if verify == "t" then
+      M.read(filename)
+
+      -- Verify the config
+    elseif verify == "u" then
+      local msg = 'Unknown config file found: "' .. vim.fn.fnamemodify(filename, ":t") .. '"'
+      local choice = notifier:confirm(msg, "&skip\n&open\n&ignore\n&trust")
+
+      -- Edit config
+      if choice == 2 then
+        M.edit(filename)
+
+        -- Mark the config as ignore
+      elseif choice == 3 then
+        M.ignore(filename)
+
+        -- Mark the config as trusted
+      elseif choice == 4 then
+        M.trust(filename)
+      end
+
+      -- Ignore the config
+    else
+      notifier:onotify('File "' .. filename .. '" is ignored')
+    end
   end
+  api.nvim_command "doautocmd User ConfigFinished"
 end
 
 -- Setup the plugin
