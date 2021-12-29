@@ -55,7 +55,7 @@ end
 --- @param filename string: a file name
 function M.edit(filename)
   local rc_files = M.config.config_files
-  filename = filename or utils.lookup(vim.fn.getcwd(), rc_files) or rc_files[0]
+  filename = filename or utils.lookup(vim.fn.getcwd(), rc_files) or rc_files[1]
   api.nvim_command("edit " .. filename)
 end
 
