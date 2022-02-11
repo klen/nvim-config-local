@@ -1,4 +1,4 @@
-# config-local.nvim
+# config-local.nvim 0.0.0
 
 Secure load local config files.
 
