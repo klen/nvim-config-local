@@ -1,6 +1,10 @@
-# config-local.nvim 1.0.0
+<img src="https://neovim.io/logos/neovim-mark-flat.png" align="right" width="144" />
+
+# nvim-config-local 1.0.0
 
 Secure load local config files.
+
+[![Awesome Neovim](https://awesome.re/badge-flat.svg)](https://github.com/rockerBOO/awesome-neovim)
 
 Vim provides a feature called `exrc`, which allows to use config files that are
 local to the current working directory. However, unconditionally sourcing
