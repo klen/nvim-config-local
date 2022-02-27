@@ -63,7 +63,7 @@ end
 ---
 --- @param filename string: a file name
 function M.trust(filename)
-  if not utils.contains(M.config.config_files, vim.fn.fnamemodify(filename, ":t")) then
+  if not utils.contains(M.config.config_files, vim.fn.fnamemodify(filename, ":~:.")) then
     return notifier:notify('Unsupported config filetype: "' .. filename .. '"', 4)
   end
   hashmap:write(filename, hashmap:checksum(filename))
@@ -74,7 +74,7 @@ end
 ---Read the given filename
 function M.read(filename)
   api.nvim_command("source " .. filename)
-  notifier:onotify('Config file loaded: "' .. vim.fn.fnamemodify(filename, ":t") .. '"')
+  notifier:onotify('Config file loaded: "' .. vim.fn.fnamemodify(filename, ":~:.") .. '"')
 end
 
 ---Load config if it exist in the current directory
@@ -90,7 +90,7 @@ function M.source()
 
       -- Verify the config
     elseif verify == "u" then
-      local msg = 'Unknown config file found: "' .. vim.fn.fnamemodify(filename, ":t") .. '"'
+      local msg = 'Unknown config file found: "' .. vim.fn.fnamemodify(filename, ":~:.") .. '"'
       local choice = notifier:confirm(msg, "&skip\n&open\n&ignore\n&trust")
 
       -- Edit config
