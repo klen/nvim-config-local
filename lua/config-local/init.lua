@@ -134,10 +134,10 @@ function M.setup(cfg)
   end
 
   if M.config.commands_create then
-    api.nvim_command "command ConfigEdit lua require'config-local'.edit()<CR>"
-    api.nvim_command "command ConfigSource lua require'config-local'.source()<CR>"
-    api.nvim_command "command ConfigTrust lua require'config-local'.trust(vim.fn.expand('%:p'))<CR>"
-    api.nvim_command "command ConfigIgnore lua require'config-local'.ignore()<CR>"
+    api.nvim_command "command! ConfigEdit lua require'config-local'.edit()<CR>"
+    api.nvim_command "command! ConfigSource lua require'config-local'.source()<CR>"
+    api.nvim_command "command! ConfigTrust lua require'config-local'.trust(vim.fn.expand('%:p'))<CR>"
+    api.nvim_command "command! ConfigIgnore lua require'config-local'.ignore()<CR>"
   end
 
   if M.config.autocommands_create then
