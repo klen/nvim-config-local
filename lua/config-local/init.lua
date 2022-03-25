@@ -11,6 +11,7 @@ local M = {
     autocommands_create = true,
     commands_create = true,
     silent = false,
+    lookup_parents = false,
   },
 }
 
@@ -41,10 +42,12 @@ end
 ---
 --- @param filename string: a file name
 function M.ignore(filename)
-  local rc_files = M.config.config_files
-  filename = filename or utils.lookup(vim.fn.getcwd(), rc_files)
+  filename = filename or M.lookup()
   if not filename then
-    return notifier:notify("Config file doesn't found: " .. table.concat(rc_files, ","), 4)
+    return notifier:notify(
+      "Config file doesn't found: " .. table.concat(M.config.config_files, ","),
+      4
+    )
   end
   hashmap:write(filename, "!")
   notifier:notify('Config file "' .. filename .. '" marked as ignored', 3)
@@ -54,8 +57,7 @@ end
 ---
 --- @param filename string: a file name
 function M.edit(filename)
-  local rc_files = M.config.config_files
-  filename = filename or utils.lookup(vim.fn.getcwd(), rc_files) or rc_files[1]
+  filename = filename or M.lookup() or M.config.config_files[1]
   api.nvim_command("edit " .. filename)
 end
 
@@ -77,10 +79,21 @@ function M.read(filename)
   notifier:onotify('Config file loaded: "' .. vim.fn.fnamemodify(filename, ":~:.") .. '"')
 end
 
+---Look for config files
+function M.lookup()
+  local path = M.config.lookup_parents and ";." or "."
+  for _, filename in ipairs(M.config.config_files) do
+    filename = vim.fn.findfile(filename, path)
+    if filename ~= "" then
+      return vim.fn.fnamemodify(filename, ":p")
+    end
+  end
+end
+
 ---Load config if it exist in the current directory
 ---
 function M.source()
-  local filename = utils.lookup(vim.fn.getcwd(), M.config.config_files)
+  local filename = M.lookup()
   if filename then
     local verify = hashmap:verify(filename)
 
