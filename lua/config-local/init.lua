@@ -65,6 +65,9 @@ end
 ---
 --- @param filename string: a file name
 function M.trust(filename)
+  if not utils.contains_filename(M.config.config_files, filename) then
+    return notifier:notify('Unsupported config filetype: "' .. filename .. '"', 4)
+  end
   hashmap:trust(filename)
   notifier:notify('Config file "' .. filename .. '" marked as trusted')
   M.read(filename)
@@ -156,7 +159,12 @@ function M.setup(cfg)
       "DirChanged global nested lua require'config-local'.source()",
       "VimEnter * nested lua require'config-local'.source()",
       -- Confirm local configs
-      "BufWritePost " .. table.concat(rc_files, ",") .. " lua require'config-local'.confirm()",
+      "BufWritePost " .. table.concat(
+        utils.map(rc_files, function(f)
+          return "**/" .. f
+        end),
+        ","
+      ) .. " lua require'config-local'.confirm()",
       -- Fix filetype for '.vimrc.lua'
       utils.contains(rc_files, ".vimrc.lua") and "BufRead .vimrc.lua set filetype=lua",
     })

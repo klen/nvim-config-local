@@ -2,7 +2,7 @@ local helpers = require "spec.lua.helpers"
 local hashmap = helpers.hashmap
 local fixtures = helpers.fixtures
 
-describe("config-local.basic", function()
+describe("config-local.plugin", function()
   after_each(helpers.after_each)
   before_each(helpers.before_each)
 
@@ -18,6 +18,11 @@ describe("config-local.basic", function()
     assert.is_true(vim.fn.exists ":ConfigTrust" > 0)
     assert.is_true(vim.fn.exists ":ConfigIgnore" > 0)
   end)
+end)
+
+describe("config-local.basic", function()
+  after_each(helpers.after_each)
+  before_each(helpers.before_each)
 
   it("test trust", function()
     local plugin = require "config-local"
