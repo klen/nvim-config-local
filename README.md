@@ -59,10 +59,10 @@ use {
 
 The plugin defines the commands:
 
-- `ConfigSource` - source a config file from the current directory
-- `ConfigEdit` - edit config file for from current directory
-- `ConfigTrust` - trust to config file from the current directory
-- `ConfigIgnore` - ignore a config file from the current directory
+- `ConfigSource` - Source config file from the current working directory
+- `ConfigEdit` - Edit (create) config file for the current working directory
+- `ConfigTrust` - Add config file for the current working directory to trusted files.
+- `ConfigIgnore` - Add config file for the current working directory to ignore files.
 
 ## Events
 

@@ -48,10 +48,10 @@ COMMANDS                                         *config-local-command*
 	Edit (create) config file for the current working directory
 
 :ConfigTrust                                    *:ConfigTrust*
-	Add config file from the current working directory to trusted files.
+	Add config file for the current working directory to trusted files.
 
 :ConfigIgnore                                   *:ConfigIgnore*
-	Add config file from the current working directory to ignore files.
+	Add config file for the current working directory to ignore files.
 
 ------------------------------------------------------------------------------
 EVENTS                                           *config-local-events*
