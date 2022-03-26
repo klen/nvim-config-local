@@ -80,4 +80,13 @@ function HashMap:verify(filename)
   return "t"
 end
 
+function HashMap:trust(filename)
+  return self:write(filename, self:checksum(filename))
+end
+
+function HashMap:reset()
+  local file = io.open(self.filename, "w")
+  file:close()
+end
+
 return HashMap

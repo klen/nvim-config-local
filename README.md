@@ -4,6 +4,7 @@
 
 Secure load local config files.
 
+[![tests](https://github.com/klen/nvim-config-local/actions/workflows/tests.yml/badge.svg)](https://github.com/klen/nvim-config-local/actions/workflows/tests.yml)
 [![Awesome Neovim](https://awesome.re/badge-flat.svg)](https://github.com/rockerBOO/awesome-neovim)
 
 Vim provides a feature called `exrc`, which allows to use config files that are

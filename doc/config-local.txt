@@ -24,7 +24,7 @@ with it:
              t -> trust, remember my choice and source this file
 
 ------------------------------------------------------------------------------
-SETUP																						*config-local-setup*
+SETUP                                            *config-local-setup*
 
 Setup the plugin (default values): >
 

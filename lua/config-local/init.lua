@@ -65,10 +65,7 @@ end
 ---
 --- @param filename string: a file name
 function M.trust(filename)
-  if not utils.contains(M.config.config_files, vim.fn.fnamemodify(filename, ":~:.")) then
-    return notifier:notify('Unsupported config filetype: "' .. filename .. '"', 4)
-  end
-  hashmap:write(filename, hashmap:checksum(filename))
+  hashmap:trust(filename)
   notifier:notify('Config file "' .. filename .. '" marked as trusted')
   M.read(filename)
 end
