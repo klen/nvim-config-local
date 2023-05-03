@@ -1,6 +1,6 @@
 <img src="https://neovim.io/logos/neovim-mark-flat.png" align="right" width="144" />
 
-# nvim-config-local 1.3.1
+# nvim-config-local 2.0.0
 
 Secure load local config files.
 
