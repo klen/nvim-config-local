@@ -10,9 +10,9 @@ Secure load local config files.
 Vim provides a feature called `exrc`, which allows to use config files that are
 local to the current working directory. However, unconditionally sourcing
 whatever files we might have in our current working directory can be
-potentially dangerous. Because of that, neovim has disabled the feature. The
-plugin tries to solve this issue by keeping track of file hashes and allowing
-only trusted files to be sourced.
+potentially dangerous. ~~Because of that, neovim has disabled the feature.~~
+The plugin tries to solve this issue by keeping track of file hashes and
+allowing only trusted files to be sourced.
 
 ## Usage
 
@@ -44,12 +44,12 @@ use {
   config = function()
     require('config-local').setup {
       -- Default configuration (optional)
-      config_files = { ".vimrc.lua", ".vimrc" },  -- Config file patterns to load (lua supported)
-      hashfile = vim.fn.stdpath("data") .. "/config-local", -- Where the plugin keeps files data
-      autocommands_create = true,                 -- Create autocommands (VimEnter, DirectoryChanged)
-      commands_create = true,                     -- Create commands (ConfigSource, ConfigEdit, ConfigTrust, ConfigIgnore)
-      silent = false,                             -- Disable plugin messages (Config loaded/ignored)
-      lookup_parents = false,                     -- Lookup config files in parent directories
+      config_files = { ".nvim.lua", ".nvimrc", ".exrc", ".vimrc.lua", ".vimrc" }, -- Config file patterns to load (lua supported)
+      hashfile = vim.fn.stdpath("data") .. "/config-local",                       -- Where the plugin keeps files data
+      autocommands_create = true,                                                 -- Create autocommands (VimEnter, DirectoryChanged)
+      commands_create = true,                                                     -- Create commands (ConfigSource, ConfigEdit, ConfigTrust, ConfigIgnore)
+      silent = false,                                                             -- Disable plugin messages (Config loaded/ignored)
+      lookup_parents = false,                                                     -- Lookup config files in parent directories
     }
   end
 }
