@@ -3,6 +3,7 @@ local Notifier = require "config-local.notify"
 local utils = require "config-local.utils"
 local api = vim.api
 local hashmap, notifier
+local findfile = vim.fn.findfile
 local M = {
   -- Default config
   config = {
@@ -81,11 +82,20 @@ end
 
 ---Look for config files
 function M.lookup()
-  local path = M.config.lookup_parents and ";." or nil
-  for _, filename in ipairs(M.config.config_files) do
-    filename = vim.fn.findfile(filename, path)
+  local config = M.config
+  local files = config.config_files
+  for _, filename in ipairs(files) do
+    filename = findfile(filename)
     if filename ~= "" then
       return vim.fn.fnamemodify(filename, ":p")
+    end
+  end
+  if config.lookup_parents then
+    for _, filename in ipairs(files) do
+      filename = findfile(filename, ";.")
+      if filename ~= "" then
+        return vim.fn.fnamemodify(filename, ":p")
+      end
     end
   end
 end
