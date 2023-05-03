@@ -52,7 +52,7 @@ use {
       hashfile = vim.fn.stdpath("data") .. "/config-local",
 
       autocommands_create = true, -- Create autocommands (VimEnter, DirectoryChanged)
-      commands_create = true,     -- Create commands (ConfigSource, ConfigEdit, ConfigTrust, ConfigIgnore)
+      commands_create = true,     -- Create commands (ConfigLocalSource, ConfigLocalEdit, ConfigLocalTrust, ConfigLocalIgnore)
       silent = false,             -- Disable plugin messages (Config loaded/ignored)
       lookup_parents = false,     -- Lookup config files in parent directories
     }
@@ -64,16 +64,16 @@ use {
 
 The plugin defines the commands:
 
-- `ConfigSource` - Source config file from the current working directory
-- `ConfigEdit` - Edit (create) config file for the current working directory
-- `ConfigTrust` - Add config file for the current working directory to trusted files.
-- `ConfigIgnore` - Add config file for the current working directory to ignore files.
+- `ConfigLocalSource` - Source config file from the current working directory
+- `ConfigLocalEdit` - Edit (create) config file for the current working directory
+- `ConfigLocalTrust` - Add config file for the current working directory to trusted files.
+- `ConfigLocalIgnore` - Add config file for the current working directory to ignore files.
 
 ## Events
 
-The plugin sends event `User ConfigLoaded` after loading configuration.
+The plugin sends event `User ConfigLocalLoaded` after loading configuration.
 So users may bind `autocmd` to the event:
 
 ```vim
-autocmd User ConfigFinished lua my_custom_function()
+autocmd User ConfigLocalFinished lua my_custom_function()
 ```

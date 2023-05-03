@@ -29,37 +29,42 @@ SETUP                                            *config-local-setup*
 Setup the plugin (default values): >
 
     require('config-local').setup {
-      -- Default configuration (optional)
-      config_files = { ".vimrc.lua", ".vimrc" },  -- Config file patterns to load (lua supported)
-      hashfile = vim.fn.stdpath("data") .. "/config-local", -- Where the plugin keeps files data
-      autocommands_create = true,                 -- Create autocommands (VimEnter, DirectoryChanged)
-      commands_create = true,                     -- Create commands (ConfigSource, ConfigEdit, ConfigTrust, ConfigIgnore)
-      silent = false,                             -- Disable plugin messages (Config loaded/ignored)
-      lookup_parents = false,                     -- Lookup config files in parent directories
+      -- Default options (optional)
+
+      -- Config file patterns to load (lua supported)
+      config_files = { ".nvim.lua", ".nvimrc", ".exrc", ".vimrc.lua", ".vimrc" },
+
+      -- Where the plugin keeps files data
+      hashfile = vim.fn.stdpath("data") .. "/config-local",
+
+      autocommands_create = true, -- Create autocommands (VimEnter, DirectoryChanged)
+      commands_create = true,     -- Create commands (ConfigLocalSource, ConfigLocalEdit, ConfigLocalTrust, ConfigLocalIgnore)
+      silent = false,             -- Disable plugin messages (Config loaded/ignored)
+      lookup_parents = false,     -- Lookup config files in parent directories
     }
 
 ------------------------------------------------------------------------------
 COMMANDS                                         *config-local-command*
 
-:ConfigSource                                   *:ConfigSource*
+:ConfigLocalSource                                   *:ConfigLocalSource*
 	Source config file from the current working directory
 
-:ConfigEdit                                     *:ConfigEdit*
+:ConfigLocalEdit                                     *:ConfigLocalEdit*
 	Edit (create) config file for the current working directory
 
-:ConfigTrust                                    *:ConfigTrust*
+:ConfigLocalTrust                                    *:ConfigLocalTrust*
 	Add config file for the current working directory to trusted files.
 
-:ConfigIgnore                                   *:ConfigIgnore*
+:ConfigLocalIgnore                                   *:ConfigLocalIgnore*
 	Add config file for the current working directory to ignore files.
 
 ------------------------------------------------------------------------------
 EVENTS                                           *config-local-events*
 
-The plugin sends event `User ConfigFinished` after loading configuration.
+The plugin sends event `User ConfigLocalFinished` after loading configuration.
 So users may bind |autocmd| to the event: >
 
-	:autocmd User ConfigFinished lua my_custom_function()
+	:autocmd User ConfigLocalFinished lua my_custom_function()
 
 
 ------------------------------------------------------------------------------

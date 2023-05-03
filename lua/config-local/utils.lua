@@ -16,19 +16,6 @@ return {
 
   contains = contains,
 
-  ---VIM augroup command helper
-  ---
-  augroup = function(group_name, definitions)
-    api.nvim_command("augroup " .. group_name)
-    api.nvim_command "autocmd!"
-    for _, def in ipairs(definitions) do
-      if def then
-        api.nvim_command("autocmd " .. def)
-      end
-    end
-    api.nvim_command "augroup END"
-  end,
-
   map = function(t, f)
     local t1 = {}
     local t_len = #t

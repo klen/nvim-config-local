@@ -2,7 +2,6 @@ local utils = require "config-local.utils"
 
 describe("config-local.utils", function()
   it("test basic", function()
-    assert.truthy(utils.augroup)
     assert.truthy(utils.contains)
     assert.truthy(utils.contains_filename)
   end)

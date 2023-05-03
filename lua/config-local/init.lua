@@ -124,7 +124,7 @@ function M.source()
       notifier:onotify('File "' .. filename .. '" is ignored')
     end
   end
-  api.nvim_command "doautocmd User ConfigFinished"
+  api.nvim_command "doautocmd User ConfigLocalFinished"
 end
 
 -- Setup the plugin
@@ -147,27 +147,56 @@ function M.setup(cfg)
   end
 
   if M.config.commands_create then
-    api.nvim_command "command! ConfigEdit lua require'config-local'.edit()<CR>"
-    api.nvim_command "command! ConfigSource lua require'config-local'.source()<CR>"
-    api.nvim_command "command! ConfigTrust lua require'config-local'.trust(vim.fn.expand('%:p'))<CR>"
-    api.nvim_command "command! ConfigIgnore lua require'config-local'.ignore()<CR>"
+    api.nvim_command "command! ConfigLocalEdit lua require'config-local'.edit()<CR>"
+    api.nvim_command "command! ConfigLocalSource lua require'config-local'.source()<CR>"
+    api.nvim_command "command! ConfigLocalTrust lua require'config-local'.trust(vim.fn.expand('%:p'))<CR>"
+    api.nvim_command "command! ConfigLocalIgnore lua require'config-local'.ignore()<CR>"
   end
 
   if M.config.autocommands_create then
-    utils.augroup("config-local", {
-      -- Source local configs
-      "DirChanged global nested lua require'config-local'.source()",
-      "VimEnter * nested lua require'config-local'.source()",
-      -- Confirm local configs
-      "BufWritePost " .. table.concat(
+    local au = vim.api.nvim_create_autocmd
+    local augroup = vim.api.nvim_create_augroup("config-local", { clear = true })
+
+    -- Source local configs
+    au("VimEnter", {
+      group = augroup,
+      desc = "Source local configs",
+      pattern = "*",
+      nested = true,
+      callback = M.source,
+    })
+
+    au("DirChanged", {
+      group = augroup,
+      desc = "Source local configs",
+      callback = M.source,
+    })
+
+    -- Confirm local configs
+    au("BufWritePost", {
+      group = augroup,
+      desc = "Confirm local configs",
+      pattern = table.concat(
         utils.map(rc_files, function(f)
           return "**/" .. f
         end),
         ","
-      ) .. " lua require'config-local'.confirm()",
-      -- Fix filetype for '.vimrc.lua'
-      utils.contains(rc_files, ".vimrc.lua") and "BufRead .vimrc.lua set filetype=lua",
+      ),
+      nested = true,
+      callback = M.confirm,
     })
+
+    if utils.contains(rc_files, ".vimrc.lua") then
+      au("BufRead", {
+        group = augroup,
+        desc = 'Fix filetype for ".vimrc.lua"',
+        pattern = ".vimrc.lua",
+        nested = true,
+        callback = function()
+          api.nvim_command "set filetype=lua"
+        end,
+      })
+    end
   end
 end
 
