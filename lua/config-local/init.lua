@@ -85,7 +85,7 @@ function M.lookup()
   local config = M.config
   local files = config.config_files
   for _, filename in ipairs(files) do
-    filename = findfile(filename)
+    filename = findfile(filename, ".")
     if filename ~= "" then
       return vim.fn.fnamemodify(filename, ":p")
     end
