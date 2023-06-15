@@ -20,7 +20,7 @@ When the plugin detects a new config file, it will ask what do you want to do
 with it:
 
 ```
-[config-local]: Unknown config file found: ".vimrc"
+[config-local]: Unknown config file found: ".nvim.lua"
 [s]kip, (o)pen, (i)gnore, (t)rust:
 ```
 
@@ -28,7 +28,7 @@ You can either `s`kip this file for now, `o`pen it to see if it doesn't contain
 anything malicious, `i`ignore the file so `config-local` won't ask you about it
 again, or `t`rust (mark it trusted) and source it right away.
 
-To manually mark file as trusted, open the config file with `:edit .vimrc` or
+To manually mark file as trusted, open the config file with `:edit .nvim.lua` or
 `:ConfigEdit` and save it. You will be asked to trust the current config file.
 
 File has to be marked as trusted each time its contents or path changes.
@@ -46,7 +46,7 @@ use {
       -- Default options (optional)
 
       -- Config file patterns to load (lua supported)
-      config_files = { ".nvim.lua", ".nvimrc", ".exrc", ".vimrc.lua", ".vimrc" },
+      config_files = { ".nvim.lua", ".nvimrc", ".exrc" },
 
       -- Where the plugin keeps files data
       hashfile = vim.fn.stdpath("data") .. "/config-local",

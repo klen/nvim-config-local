@@ -7,7 +7,7 @@ local findfile = vim.fn.findfile
 local M = {
   -- Default config
   config = {
-    config_files = { ".nvim.lua", ".nvimrc", ".exrc", ".vimrc.lua", ".vimrc" },
+    config_files = { ".nvim.lua", ".nvimrc", ".exrc" },
     hashfile = vim.fn.stdpath "data" .. "/config-local",
     autocommands_create = true,
     commands_create = true,

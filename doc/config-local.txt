@@ -5,17 +5,16 @@ INTRODUCTION                                     *config-local-introduction*
 
 Secure load local config files.
 
-Vim provides a feature called |`exrc`|, which allows to use config files that are
-local to the current working directory. However, unconditionally sourcing
+Vim provides a feature called |`exrc`|, which allows to use config files that
+are local to the current working directory. However, unconditionally sourcing
 whatever files we might have in our current working directory can be
-potentially dangerous. Because of that, neovim has disabled the feature. The
-plugin tries to solve this issue by keeping track of file hashes and allowing
-only trusted files to be sourced.
+potentially dangerous. The plugin tries to solve this issue by keeping track
+of file hashes and allowing only trusted files to be sourced.
 
 When config-local detects a new config file, it will ask what do you want to do
 with it:
 >
-  [config-local]: Unknown config file found: ".vimrc"
+  [config-local]: Unknown config file found: ".nvim.lua"
   [s]kip, (o)pen, (i)gnore, (t)rust:
 <
 <Esc>, <CR>, s -> skip question for now and continue
@@ -32,7 +31,7 @@ Setup the plugin (default values): >
       -- Default options (optional)
 
       -- Config file patterns to load (lua supported)
-      config_files = { ".nvim.lua", ".nvimrc", ".exrc", ".vimrc.lua", ".vimrc" },
+      config_files = { ".nvim.lua", ".nvimrc", ".exrc" },
 
       -- Where the plugin keeps files data
       hashfile = vim.fn.stdpath("data") .. "/config-local",
