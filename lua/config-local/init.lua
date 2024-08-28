@@ -39,10 +39,10 @@ function M.confirm()
   end
 end
 
----Ignore local configuration
+---Deny local configuration
 ---
 --- @param filename string: a file name
-function M.ignore(filename)
+function M.deny(filename)
   filename = filename or M.lookup()
   if not filename then
     return notifier:notify(
@@ -51,7 +51,7 @@ function M.ignore(filename)
     )
   end
   hashmap:write(filename, "!")
-  notifier:notify('Config file "' .. filename .. '" marked as ignored', 3)
+  notifier:notify('Config file "' .. filename .. '" marked as denied', 3)
 end
 
 ---Edit local configuration
@@ -114,24 +114,24 @@ function M.source()
       -- Verify the config
     elseif verify == "u" then
       local msg = 'Unknown config file found: "' .. vim.fn.fnamemodify(filename, ":~:.") .. '"'
-      local choice = notifier:confirm(msg, "&skip\n&open\n&ignore\n&trust")
+      local choice = notifier:confirm(msg, "&ignore\n&view\n&deny\n&allow")
 
       -- Edit config
       if choice == 2 then
         M.edit(filename)
 
-        -- Mark the config as ignore
+        -- Mark the config as denied
       elseif choice == 3 then
-        M.ignore(filename)
+        M.deny(filename)
 
         -- Mark the config as trusted
       elseif choice == 4 then
         M.trust(filename)
       end
 
-      -- Ignore the config
+      -- Deny the config
     else
-      notifier:onotify('File "' .. filename .. '" is ignored')
+      notifier:onotify('File "' .. filename .. '" is denied')
     end
   end
   api.nvim_command "doautocmd User ConfigLocalFinished"
@@ -160,7 +160,7 @@ function M.setup(cfg)
     api.nvim_command "command! ConfigLocalEdit lua require'config-local'.edit()<CR>"
     api.nvim_command "command! ConfigLocalSource lua require'config-local'.source()<CR>"
     api.nvim_command "command! ConfigLocalTrust lua require'config-local'.trust(vim.fn.expand('%:p'))<CR>"
-    api.nvim_command "command! ConfigLocalIgnore lua require'config-local'.ignore()<CR>"
+    api.nvim_command "command! ConfigLocalDeny lua require'config-local'.deny()<CR>"
   end
 
   if M.config.autocommands_create then
