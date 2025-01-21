@@ -15,12 +15,13 @@ When config-local detects a new config file, it will ask what do you want to do
 with it:
 >
   [config-local]: Unknown config file found: ".nvim.lua"
+  [i]gnore, (v)iew, (d)eny, (a)llow:
   [s]kip, (o)pen, (i)gnore, (t)rust:
 <
-<Esc>, <CR>, s -> skip question for now and continue
-             o -> open (show) this file
-             i -> ignore, don't ask me about this file again
-             t -> trust, remember my choice and source this file
+<Esc>, <CR>, i -> ignore the config file for now and continue
+             v -> view this file
+             d -> deny sourcing the config file and don't ask me about this file again
+             a -> allow sourcing the config file and remember my choice
 
 ------------------------------------------------------------------------------
 SETUP                                            *config-local-setup*
@@ -37,8 +38,8 @@ Setup the plugin (default values): >
       hashfile = vim.fn.stdpath("data") .. "/config-local",
 
       autocommands_create = true, -- Create autocommands (VimEnter, DirectoryChanged)
-      commands_create = true,     -- Create commands (ConfigLocalSource, ConfigLocalEdit, ConfigLocalTrust, ConfigLocalIgnore)
-      silent = false,             -- Disable plugin messages (Config loaded/ignored)
+      commands_create = true,     -- Create commands (ConfigLocalSource, ConfigLocalEdit, ConfigLocalTrust, ConfigLocalDeny)
+      silent = false,             -- Disable plugin messages (Config loaded/denied)
       lookup_parents = false,     -- Lookup config files in parent directories
     }
 
@@ -54,7 +55,7 @@ COMMANDS                                         *config-local-command*
 :ConfigLocalTrust                                    *:ConfigLocalTrust*
 	Add config file for the current working directory to trusted files.
 
-:ConfigLocalIgnore                                   *:ConfigLocalIgnore*
+:ConfigLocalDeny                                     *:ConfigLocalDeny*
 	Add config file for the current working directory to ignore files.
 
 ------------------------------------------------------------------------------

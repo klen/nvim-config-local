@@ -21,12 +21,12 @@ with it:
 
 ```
 [config-local]: Unknown config file found: ".nvim.lua"
-[s]kip, (o)pen, (i)gnore, (t)rust:
+[i]gnore, (v)iew, (d)eny, (a)llow:
 ```
 
-You can either `s`kip this file for now, `o`pen it to see if it doesn't contain
-anything malicious, `i`ignore the file so `config-local` won't ask you about it
-again, or `t`rust (mark it trusted) and source it right away.
+You can either `i`gnore this file for now, `v`iew it to see if it doesn't contain
+anything malicious, `d`eny sourcing the file so `config-local` won't ask you about it
+again, or `a`llow (mark it allowed) sourcing it right away.
 
 To manually mark file as trusted, open the config file with `:edit .nvim.lua` or
 `:ConfigEdit` and save it. You will be asked to trust the current config file.
@@ -52,8 +52,8 @@ use {
       hashfile = vim.fn.stdpath("data") .. "/config-local",
 
       autocommands_create = true, -- Create autocommands (VimEnter, DirectoryChanged)
-      commands_create = true,     -- Create commands (ConfigLocalSource, ConfigLocalEdit, ConfigLocalTrust, ConfigLocalIgnore)
-      silent = false,             -- Disable plugin messages (Config loaded/ignored)
+      commands_create = true,     -- Create commands (ConfigLocalSource, ConfigLocalEdit, ConfigLocalTrust, ConfigLocalDeny)
+      silent = false,             -- Disable plugin messages (Config loaded/denied)
       lookup_parents = false,     -- Lookup config files in parent directories
     }
   end
@@ -67,7 +67,7 @@ The plugin defines the commands:
 - `ConfigLocalSource` - Source config file from the current working directory
 - `ConfigLocalEdit` - Edit (create) config file for the current working directory
 - `ConfigLocalTrust` - Add config file for the current working directory to trusted files.
-- `ConfigLocalIgnore` - Add config file for the current working directory to ignore files.
+- `ConfigLocalDeny - Add config file for the current working directory to denied files.
 
 ## Events
 
