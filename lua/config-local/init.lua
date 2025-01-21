@@ -92,7 +92,7 @@ function M.lookup()
   end
   if config.lookup_parents then
     for _, filename in ipairs(files) do
-      filename = findfile(filename, ";.")
+      filename = findfile(filename, ".;")
       if filename ~= "" then
         return vim.fn.fnamemodify(filename, ":p")
       end
